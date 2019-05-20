@@ -3,7 +3,7 @@ package pl.javastart;
 class Tricky {
     private String field;
 
-    /*private*/ public Tricky(String field) { //TODO: must be private not public
+    private Tricky(String field) {
         this.field = field;
     }
 

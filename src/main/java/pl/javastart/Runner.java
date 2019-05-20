@@ -16,8 +16,8 @@ class Runner {
         Object[] constructorArgs = new Object[]{name};
         try {
             Class<Object> cls = (Class<Object>) Class.forName("pl.javastart.".concat(String.valueOf(forbiddenWord)));
-            Constructor externalConstructor = cls.getConstructor(constructor);
-            externalConstructor.setAccessible(true); // nie działa dla konstruktora private
+            Constructor externalConstructor = cls.getDeclaredConstructor(constructor);
+            externalConstructor.setAccessible(true);
             Object newInstanceConstructor = externalConstructor.newInstance(constructorArgs);
 
             Class[] noParams = {};
