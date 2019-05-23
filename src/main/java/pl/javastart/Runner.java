@@ -1,7 +1,6 @@
 package pl.javastart;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 class Runner {
@@ -15,18 +14,15 @@ class Runner {
 
         Object[] constructorArgs = new Object[]{name};
         try {
-            Class<Object> cls = (Class<Object>) Class.forName("pl.javastart.".concat(String.valueOf(forbiddenWord)));
+            Class<?> cls = Class.forName("pl.javastart.".concat(String.valueOf(forbiddenWord)));
             Constructor externalConstructor = cls.getDeclaredConstructor(constructor);
             externalConstructor.setAccessible(true);
             Object newInstanceConstructor = externalConstructor.newInstance(constructorArgs);
 
-            Class[] noParams = {};
+            Method method = cls.getDeclaredMethod("show");
+            method.invoke(newInstanceConstructor);
 
-            Method method = cls.getDeclaredMethod("show", noParams);
-            method.invoke(newInstanceConstructor, noParams);
-
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
